@@ -34,10 +34,18 @@ $storeApplications = @{
     line            ="9WZDNCRFJ2G6";
     wechat          ="9NBLGGH4SLX7";
     skype           ="9WZDNCRFJ364";
-    Plex="9WZDNCRFJ3Q8";
-    #NugetPackageExplorer="9WZDNCRDMDM3";
-    #netflix ="9WZDNCRFJ3TJ";
+    Trello="9NBLGGH4XXVW";
 }
+<# Airserver
+onenote
+telegram desktop
+ublock origin
+Your phone
+registry scanner
+#NugetPackageExplorer="9WZDNCRDMDM3";
+#netflix ="9WZDNCRFJ3TJ";
+    Plex="9WZDNCRFJ3Q8"; #outdated, no longer exists
+ #>
 
 foreach($app in $storeApplications.Keys) {
     addAppManual $app $storeApplications[$app]
