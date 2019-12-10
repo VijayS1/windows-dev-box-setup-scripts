@@ -55,14 +55,8 @@ $applicationList = @(
 	"*.AdobePhotoshopExpress"
 );
 
-$InstallApplicationList = @(
-	"*Netflix*"
-	"*Plex*"
-);
-
 # Ignored list for now
 #	"Microsoft.WindowsSoundRecorder"
-
 
 foreach ($app in $applicationList) {
     removeApp $app
