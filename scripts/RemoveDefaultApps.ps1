@@ -32,9 +32,7 @@ $applicationList = @(
 	"Microsoft.MicrosoftOfficeHub"
 	"Microsoft.OneConnect"
 	"Microsoft.WindowsPhone"
-	"Microsoft.WindowsSoundRecorder"
 	"*Solitaire*"
-	"Microsoft.MicrosoftStickyNotes"
 	"Microsoft.Office.Sway"
 	"Microsoft.XboxApp"
 	"Microsoft.XboxIdentityProvider"
@@ -50,14 +48,21 @@ $applicationList = @(
 	"*Dell*"
 	"*Facebook*"
 	"*Keeper*"
-	"*Netflix*"
 	"*Twitter*"
-	"*Plex*"
 	"*.Duolingo-LearnLanguagesforFree"
 	"*.EclipseManager"
 	"ActiproSoftwareLLC.562882FEEB491" # Code Writer
 	"*.AdobePhotoshopExpress"
 );
+
+$InstallApplicationList = @(
+	"*Netflix*"
+	"*Plex*"
+);
+
+# Ignored list for now
+#	"Microsoft.WindowsSoundRecorder"
+
 
 foreach ($app in $applicationList) {
     removeApp $app
