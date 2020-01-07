@@ -35,8 +35,10 @@
     "teamviewer12"
     "vnc-connect"
     "chocolateygui"
+    "discord"
     )
-    
+    #zerotier-one
+    #radmin-vpn
     function cinstApp {
         Param ([string]$appName)
         #write-output "choco install -ys $appName" #DEBUG
