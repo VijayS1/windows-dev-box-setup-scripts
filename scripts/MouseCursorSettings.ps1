@@ -1,40 +1,43 @@
-
 $regpath = "HKCU:\Control Panel\Cursors"
 $cursorpath = "%LocalAppData%\Microsoft\Windows\Cursors\"
 
 $suffix = "_eoa.cur"
 $settings = @(@{Path="."; Force=$true; PropertyType="String";       Name="(Default)";     Value="Windows Inverted"}
-              @{Path="."; Force=$true; PropertyType="DWord";        Name=CursorBaseSize;  Value=64}
+              @{Path="."; Force=$true; PropertyType="DWord";        Name="CursorBaseSize";  Value=64}
               @{Path="."; Force=$true; PropertyType="DWord";        Name="Scheme Source"; Value=2}
-              @{Path="."; Force=$true; PropertyType="ExpandString"; Name=Appstarting;     Value=$cursorpath + "busy"   +$suffix}
-              @{Path="."; Force=$true; PropertyType="ExpandString"; Name=Arrow;           Value=$cursorpath + "arrow"  +$suffix}
-              @{Path="."; Force=$true; PropertyType="ExpandString"; Name=Crosshair;       Value=$cursorpath + "cross"  +$suffix}
-              @{Path="."; Force=$true; PropertyType="ExpandString"; Name=Hand;            Value=$cursorpath + "link"   +$suffix}
-              @{Path="."; Force=$true; PropertyType="ExpandString"; Name=Help;            Value=$cursorpath + "helpsel"+$suffix}
-              @{Path="."; Force=$true; PropertyType="ExpandString"; Name=IBeam;           Value=$cursorpath + "ibeam"  +$suffix}
-              @{Path="."; Force=$true; PropertyType="ExpandString"; Name=No;              Value=$cursorpath + "no"     +$suffix}
-              @{Path="."; Force=$true; PropertyType="ExpandString"; Name=NWPen;           Value=$cursorpath + "pen"    +$suffix}
-              @{Path="."; Force=$true; PropertyType="ExpandString"; Name=Person;          Value=$cursorpath + "person" +$suffix}
-              @{Path="."; Force=$true; PropertyType="ExpandString"; Name=Pin;             Value=$cursorpath + "pin"    +$suffix}
-              @{Path="."; Force=$true; PropertyType="ExpandString"; Name=SizeAll;         Value=$cursorpath + "move"   +$suffix}
-              @{Path="."; Force=$true; PropertyType="ExpandString"; Name=SizeNESW;        Value=$cursorpath + "nesw"   +$suffix}
-              @{Path="."; Force=$true; PropertyType="ExpandString"; Name=SizeNS;          Value=$cursorpath + "ns"     +$suffix}
-              @{Path="."; Force=$true; PropertyType="ExpandString"; Name=SizeNWSE;        Value=$cursorpath + "nwse"   +$suffix}
-              @{Path="."; Force=$true; PropertyType="ExpandString"; Name=SizeWE;          Value=$cursorpath + "ew"     +$suffix}
-              @{Path="."; Force=$true; PropertyType="ExpandString"; Name=UpArrow;         Value=$cursorpath + "up"     +$suffix}
-              @{Path="."; Force=$true; PropertyType="ExpandString"; Name=Wait;            Value=$cursorpath + "wait"   +$suffix}
+              @{Path="."; Force=$true; PropertyType="ExpandString"; Name="Appstarting";     Value=$cursorpath + "busy"   +$suffix}
+              @{Path="."; Force=$true; PropertyType="ExpandString"; Name="Arrow";           Value=$cursorpath + "arrow"  +$suffix}
+              @{Path="."; Force=$true; PropertyType="ExpandString"; Name="Crosshair";       Value=$cursorpath + "cross"  +$suffix}
+              @{Path="."; Force=$true; PropertyType="ExpandString"; Name="Hand";            Value=$cursorpath + "link"   +$suffix}
+              @{Path="."; Force=$true; PropertyType="ExpandString"; Name="Help";            Value=$cursorpath + "helpsel"+$suffix}
+              @{Path="."; Force=$true; PropertyType="ExpandString"; Name="IBeam";           Value=$cursorpath + "ibeam"  +$suffix}
+              @{Path="."; Force=$true; PropertyType="ExpandString"; Name="No";              Value=$cursorpath + "no"     +$suffix}
+              @{Path="."; Force=$true; PropertyType="ExpandString"; Name="NWPen";           Value=$cursorpath + "pen"    +$suffix}
+              @{Path="."; Force=$true; PropertyType="ExpandString"; Name="Person";          Value=$cursorpath + "person" +$suffix}
+              @{Path="."; Force=$true; PropertyType="ExpandString"; Name="Pin";             Value=$cursorpath + "pin"    +$suffix}
+              @{Path="."; Force=$true; PropertyType="ExpandString"; Name="SizeAll";         Value=$cursorpath + "move"   +$suffix}
+              @{Path="."; Force=$true; PropertyType="ExpandString"; Name="SizeNESW";        Value=$cursorpath + "nesw"   +$suffix}
+              @{Path="."; Force=$true; PropertyType="ExpandString"; Name="SizeNS";          Value=$cursorpath + "ns"     +$suffix}
+              @{Path="."; Force=$true; PropertyType="ExpandString"; Name="SizeNWSE";        Value=$cursorpath + "nwse"   +$suffix}
+              @{Path="."; Force=$true; PropertyType="ExpandString"; Name="SizeWE";          Value=$cursorpath + "ew"     +$suffix}
+              @{Path="."; Force=$true; PropertyType="ExpandString"; Name="UpArrow";         Value=$cursorpath + "up"     +$suffix}
+              @{Path="."; Force=$true; PropertyType="ExpandString"; Name="Wait";            Value=$cursorpath + "wait"   +$suffix}
              )
 
 Set-Location $regpath #set location to registry folder where we will make all changes
+#$DebugPreference = "Continue"
 foreach ($regkey in $settings) {
-#    New-ItemProperty @regkey #create all the registry keys
-    Write-Debug "Setting: " + $regkey
+    New-ItemProperty @regkey #create all the registry keys
+    Write-Debug ($regkey | Out-String)
 }
 #$settings.ForEach(New-ItemProperty @_) #alternative method testing
 
+# The above new method works so the following isn't
+# I am debating, about readability and ease of expansion the bottom code seems to be easier to parse for humans, though it contains many duplicate lines,
+# but with modern tools like vscode, it is easy to edit such duplicated content and files now. So when it comes to code maintainence which is better.
 
 #Set Mouse Pointer Scheme to Windows Inverted, large size
-New-ItemProperty -Path $regpath -Name "(Default)"      -Value "Windows Inverted"                    -PropertyType String       -Force
+<# New-ItemProperty -Path $regpath -Name "(Default)"      -Value "Windows Inverted"                    -PropertyType String       -Force
 New-ItemProperty -Path $regpath -Name CursorBaseSize   -Value 64                                    -PropertyType DWord        -Force
 New-ItemProperty -Path $regpath -Name "Scheme Source"  -Value 2                                     -PropertyType DWord        -Force
 New-ItemProperty -Path $regpath -Name AppStarting      -Value ($cursorpath + "busy"   + "_eoa.cur") -PropertyType ExpandString -Force
@@ -54,8 +57,13 @@ New-ItemProperty -Path $regpath -Name SizeNWSE         -Value ($cursorpath + "nw
 New-ItemProperty -Path $regpath -Name SizeWE           -Value ($cursorpath + "ew"     + "_eoa.cur") -PropertyType ExpandString -Force
 New-ItemProperty -Path $regpath -Name UpArrow          -Value ($cursorpath + "up"     + "_eoa.cur") -PropertyType ExpandString -Force
 New-ItemProperty -Path $regpath -Name Wait             -Value ($cursorpath + "wait"   + "_eoa.cur") -PropertyType ExpandString -Force #same
- 
+  #>
+
+
 #Enable Pointer Option: Show location of pointer when I press the CTRL key
 # not sure about this, as we should actually be doing a bitwise OR operation from previous result to our desired result to get the actual mask
 # as I have foudn it to be different in different parts of the registry. 
 #New-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name UserPreferencesMask -Value  ([byte[]](0x9E,0x5E,0x07,0x80,0x12,0x00,0x00,0x00)) -PropertyType Binary -Force
+
+#Refresh cursors? 
+# don't know if i need to refresh cursor, like it suggests here. https://devblogs.microsoft.com/scripting/use-powershell-to-change-the-mouse-pointer-scheme/
