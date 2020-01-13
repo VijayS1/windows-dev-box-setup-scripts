@@ -34,6 +34,7 @@ executeScript "WSL.ps1";
 executeScript "Browsers.ps1";
 executeScript "VJApps.ps1";
 executeScript "MouseCursorSettings.ps1"; #moved below because it was causing problems with the other scripts I believe.
+#executeScript "OEMInformationSettings.ps1";
 
 #--- Tools ---
 choco install -y visualstudio2019community --package-parameters="'--add Microsoft.VisualStudio.Component.Git'"
