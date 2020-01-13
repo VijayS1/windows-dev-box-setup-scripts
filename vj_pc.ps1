@@ -25,7 +25,6 @@ function executeScript {
 
 #--- Setting up Windows ---
 executeScript "FileExplorerSettings.ps1";
-executeScript "MouseCursorSettings.ps1";
 executeScript "SystemConfiguration.ps1";
 executeScript "CommonDevTools.ps1";
 executeScript "RemoveDefaultApps.ps1";
@@ -34,6 +33,7 @@ executeScript "Docker.ps1";
 executeScript "WSL.ps1";
 executeScript "Browsers.ps1";
 executeScript "VJApps.ps1";
+executeScript "MouseCursorSettings.ps1"; #moved below because it was causing problems with the other scripts I believe.
 
 #--- Tools ---
 choco install -y visualstudio2019community --package-parameters="'--add Microsoft.VisualStudio.Component.Git'"
