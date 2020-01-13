@@ -1,10 +1,11 @@
-$regpath = "HKCU:\Control Panel\Cursors"
-$cursorpath = "%LocalAppData%\Microsoft\Windows\Cursors\"
-
+Push-Location "HKCU:\Control Panel\Cursors" #set location to registry folder where we will make all changes
+$cursorpath = "%LocalAppData%\Microsoft\Windows\Cursors\" #this references the environment variable directly
+# if i use $env:LOCALAPPDATA, then it expands it to the absolute path, which seems to be default behavior for windows now. Keep absolutes in registry
 $suffix = "_eoa.cur"
-$settings = @(@{Path="."; Force=$true; PropertyType="String";       Name="(Default)";     Value="Windows Inverted"}
+
+$settings = @(@{Path="."; Force=$true; PropertyType="String";       Name="(Default)";       Value="Windows Inverted"}
               @{Path="."; Force=$true; PropertyType="DWord";        Name="CursorBaseSize";  Value=64}
-              @{Path="."; Force=$true; PropertyType="DWord";        Name="Scheme Source"; Value=2}
+              @{Path="."; Force=$true; PropertyType="DWord";        Name="Scheme Source";   Value=2}
               @{Path="."; Force=$true; PropertyType="ExpandString"; Name="Appstarting";     Value=$cursorpath + "busy"   +$suffix}
               @{Path="."; Force=$true; PropertyType="ExpandString"; Name="Arrow";           Value=$cursorpath + "arrow"  +$suffix}
               @{Path="."; Force=$true; PropertyType="ExpandString"; Name="Crosshair";       Value=$cursorpath + "cross"  +$suffix}
@@ -24,40 +25,14 @@ $settings = @(@{Path="."; Force=$true; PropertyType="String";       Name="(Defau
               @{Path="."; Force=$true; PropertyType="ExpandString"; Name="Wait";            Value=$cursorpath + "wait"   +$suffix}
              )
 
-Set-Location $regpath #set location to registry folder where we will make all changes
 #$DebugPreference = "Continue"
 foreach ($regkey in $settings) {
     New-ItemProperty @regkey #create all the registry keys
     Write-Debug ($regkey | Out-String)
 }
+Remove-Variable cursorpath
+Pop-Location
 #$settings.ForEach(New-ItemProperty @_) #alternative method testing
-
-# The above new method works so the following isn't
-# I am debating, about readability and ease of expansion the bottom code seems to be easier to parse for humans, though it contains many duplicate lines,
-# but with modern tools like vscode, it is easy to edit such duplicated content and files now. So when it comes to code maintainence which is better.
-
-#Set Mouse Pointer Scheme to Windows Inverted, large size
-<# New-ItemProperty -Path $regpath -Name "(Default)"      -Value "Windows Inverted"                    -PropertyType String       -Force
-New-ItemProperty -Path $regpath -Name CursorBaseSize   -Value 64                                    -PropertyType DWord        -Force
-New-ItemProperty -Path $regpath -Name "Scheme Source"  -Value 2                                     -PropertyType DWord        -Force
-New-ItemProperty -Path $regpath -Name AppStarting      -Value ($cursorpath + "busy"   + "_eoa.cur") -PropertyType ExpandString -Force
-New-ItemProperty -Path $regpath -Name Arrow            -Value ($cursorpath + "arrow"  + "_eoa.cur") -PropertyType ExpandString -Force #same
-New-ItemProperty -Path $regpath -Name Crosshair        -Value ($cursorpath + "cross"  + "_eoa.cur") -PropertyType ExpandString -Force
-New-ItemProperty -Path $regpath -Name Hand             -Value ($cursorpath + "link"   + "_eoa.cur") -PropertyType ExpandString -Force
-New-ItemProperty -Path $regpath -Name Help             -Value ($cursorpath + "helpsel"+ "_eoa.cur") -PropertyType ExpandString -Force
-New-ItemProperty -Path $regpath -Name IBeam            -Value ($cursorpath + "ibeam"  + "_eoa.cur") -PropertyType ExpandString -Force #same
-New-ItemProperty -Path $regpath -Name No               -Value ($cursorpath + "no"     + "_eoa.cur") -PropertyType ExpandString -Force #same
-New-ItemProperty -Path $regpath -Name NWPen            -Value ($cursorpath + "pen"    + "_eoa.cur") -PropertyType ExpandString -Force
-New-ItemProperty -Path $regpath -Name Person           -Value ($cursorpath + "person" + "_eoa.cur") -PropertyType ExpandString -Force #same
-New-ItemProperty -Path $regpath -Name Pin              -Value ($cursorpath + "pin"    + "_eoa.cur") -PropertyType ExpandString -Force #same
-New-ItemProperty -Path $regpath -Name SizeAll          -Value ($cursorpath + "move"   + "_eoa.cur") -PropertyType ExpandString -Force
-New-ItemProperty -Path $regpath -Name SizeNESW         -Value ($cursorpath + "nesw"   + "_eoa.cur") -PropertyType ExpandString -Force
-New-ItemProperty -Path $regpath -Name SizeNS           -Value ($cursorpath + "ns"     + "_eoa.cur") -PropertyType ExpandString -Force
-New-ItemProperty -Path $regpath -Name SizeNWSE         -Value ($cursorpath + "nwse"   + "_eoa.cur") -PropertyType ExpandString -Force
-New-ItemProperty -Path $regpath -Name SizeWE           -Value ($cursorpath + "ew"     + "_eoa.cur") -PropertyType ExpandString -Force
-New-ItemProperty -Path $regpath -Name UpArrow          -Value ($cursorpath + "up"     + "_eoa.cur") -PropertyType ExpandString -Force
-New-ItemProperty -Path $regpath -Name Wait             -Value ($cursorpath + "wait"   + "_eoa.cur") -PropertyType ExpandString -Force #same
-  #>
 
 
 #Enable Pointer Option: Show location of pointer when I press the CTRL key
