@@ -34,7 +34,8 @@ $storeApplications = @{
     line            ="9WZDNCRFJ2G6";
     wechat          ="9NBLGGH4SLX7";
     skype           ="9WZDNCRFJ364";
-    Trello="9NBLGGH4XXVW";
+    Trello          ="9NBLGGH4XXVW";
+    QuickLook       ="9NV4BS3L1H4S";
 }
 <# Airserver
 onenote
