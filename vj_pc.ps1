@@ -35,7 +35,7 @@ executeScript "Browsers.ps1";
 executeScript "VJApps.ps1";
 executeScript "MouseCursorSettings.ps1"; #moved below because it was causing problems with the other scripts I believe.
 executeScript "InstallStoreApps.ps1";
-#executeScript "OEMInformationSettings.ps1";
+executeScript "OEMInformationSettings.ps1";
 
 
 Enable-UAC

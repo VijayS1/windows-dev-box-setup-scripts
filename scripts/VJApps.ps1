@@ -22,9 +22,9 @@
         "potplayer"
         "ds4windows"
         "forticlientvpn"
+        "malwarebytes"
    )
     #optional "glasswire"
-    #optional "malwarebytes"
     #zerotier-one
     #radmin-vpn
     # $deprecatedlist = @(
@@ -53,11 +53,9 @@
      )
     function cinstApp {
         Param ([string[]]$appList = $(throw "Please pass the application(s) name you wish to install."))
-        #write-debug "choco install -ys $appName" #DEBUG
-        #write-debug "choco info -y $appName" #for debugging
         foreach ($appName in $appList) {
             Write-Debug "choco info $($appName)"
-            #choco install -y $appName
+            choco install -y $appName
         }
     }
     
