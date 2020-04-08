@@ -1,8 +1,6 @@
 
     #############Optional stuff
     #cinst boxstarter
-    #synergy #old version 1.8.8. disable autostart
-    #manictime.portable #better than rescuetime #seems to be newer than the install version. 4.3.4
     #choco install office365proplus --params '/ConfigPath:c:\myConfig.xml
     ##########editors
     #everything
@@ -15,34 +13,38 @@
     ##########browsers -  taken care of by Browsers.ps1
     ###########utilities - taken care of by commondevtools.ps1
 
+    #  $officeapplist = @(
+    # )
+
+    # $deprecatedlist = @(
+    #     "nfopad"
+    #     "notepad2"
+    #     "dropbox"
+    #     "stardock-fences" #install from steam
+    #     )
+
     $applicationList = @(
     "directoryopus"
-    "manictime.install"
-    "nfopad"
-    "notepad2"
     "notepadplusplus"
-    "stardock-fences"
     "ditto"
     "listary"
     "autohotkey"
     "lastpass"
     "google-hangouts-chat"
     "office365ProPlus"
-    "dropbox"
-    "googledrive"
+    "google-backup-and-sync"
     "resilio-sync-home"
     "vlc"
     "teamviewer12"
     "vnc-connect"
     "chocolateygui"
-    "discord"
+    "manictime.install"
+    "forticlientvpn"
     )
-    #zerotier-one
-    #radmin-vpn
     function cinstApp {
         Param ([string]$appName)
-        #write-output "choco install -ys $appName" #DEBUG
-        #choco info -y $appName #for debugging
+        #write-debug "choco install -ys $appName" #DEBUG
+        #write-debug "choco info -y $appName" #for debugging
         choco install -y $appName
     }
     
